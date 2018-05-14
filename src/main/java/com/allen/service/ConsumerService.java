@@ -21,12 +21,12 @@ public class ConsumerService {
 					@HystrixProperty(name="queueSizeRejectionThreshold",value="20")
 			},
 			commandProperties={
-					@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="100"),
-					@HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="50")
+					@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="1000"),//设置调用者等待命令执行的超时限制，超过此时间，HystrixCommand被标记为TIMEOUT，并执行回退逻辑
+					@HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="50")//设置在一个滚动窗口中，打开断路器的最少请求数
 			}
 	)
-	public String ribbonAdd(){
-		return restTemplate.getForEntity("http://provider-service/add?a=10&b=20", String.class).getBody();
+	public String ribbonCall(){
+		return restTemplate.postForObject("http://provider-service/api/order/queryList",null,String.class);
 	}
 	
 	/**

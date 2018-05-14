@@ -59,7 +59,7 @@ public class ConsumerController {
 	 */
 	@RequestMapping(value="/hystrixAdd",method=RequestMethod.GET)
 	public String hystrixAdd() throws InterruptedException{
-		return this.consumerService.ribbonAdd();
+		return this.consumerService.ribbonCall();
 	}
 
 }
