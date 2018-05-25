@@ -1,5 +1,8 @@
 package com.allen.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,6 +31,13 @@ public class ConsumerService {
 	public String ribbonCall(){
 		return restTemplate.postForObject("http://provider-service/api/order/queryList",null,String.class);
 	}
+	
+	public String placeOrder(Integer goodId){
+		Map<String, Object> param=new HashMap<>();
+		param.put("sid", goodId);
+		return restTemplate.postForObject("http://provider-service/api/order/create", param, String.class);
+	}
+	
 	
 	/**
 	 * 
